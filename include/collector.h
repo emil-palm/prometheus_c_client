@@ -13,6 +13,7 @@ typedef struct {
     prom_collector_metrics_func metrics;
 } prom_collector;
 
+extern prom_collector* prom_create_collector();
 extern prom_collector* prom_default_collector();
 
 #endif

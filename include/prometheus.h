@@ -10,8 +10,11 @@
 #include "label.h"
 #include "collector.h"
 #include "metric.h"
-#include "counter.h"
 #include "log.h"
 #include "registry.h"
+#include "exporter.h"
+#include "counter.h"
+#include "gauge.h"
+
 
 #endif

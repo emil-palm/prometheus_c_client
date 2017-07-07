@@ -9,14 +9,6 @@ prom_label* prom_label_create(char *name, char *value) {
     return label;
 }
 
-char* prom_label_export(prom_label *label) {
-    char buf[9000];
-    size_t length = snprintf(buf, 9000, "%s=\"%s\"", label->name, label->value);
-    char *buffer = malloc(sizeof(char)*length);
-    strcpy(buf, buffer);
-    return buffer;
-}
-
 int prom_labels_add(prom_labels *labels, prom_label *label) {
     labels->list[labels->length] = label;
     labels->length++;
@@ -40,20 +32,6 @@ int prom_labels_create_label(prom_labels *labels, char *name, char *value) {
 prom_labels* prom_labels_create() {
     prom_labels *labels = malloc(sizeof(prom_labels));
     labels->list = malloc(sizeof(prom_labels)*LABEL_START_SIZE);
+	labels->length = 0;
     return labels;
-}
-
-char * prom_labels_export(prom_labels *labels) {
-    char buffer[9000];
-    size_t length;
-    for(int i=0; i < labels->length; i++) {
-        if (i != 0) {
-            length += snprintf(buffer, 9000, "%s,%s", buffer, prom_label_export(labels->list[i]));
-        } else {
-            length += snprintf(buffer, 9000, "%s", prom_label_export(labels->list[i]));
-        }
-    }
-    char *buff = malloc(sizeof(char) * length);
-    strcpy(buff, buffer);
-    return buff;
 }

@@ -4,19 +4,22 @@
 #define METRIC_START_SIZE 10
 
 prom_metric* prom_metric_setup(char *name, char *help) {
-  	prom_metric *collector = malloc(sizeof(prom_metric));
-	collector->name = name;
-    collector->help = help;
-    return collector;
+  	prom_metric *metric = malloc(sizeof(prom_metric));
+	metric->name = name;
+    metric->help = help;
+    metric->labels = prom_labels_create();
+    return metric;
 }
 
-char* prom_metric_export(prom_metric *collector) {
-	char buf[9000];
-	int j = snprintf(buf, INT_MAX, "# HELP %s %s\n%s", collector->name, collector->help, collector->export_func(collector));
-	char *resizedBuffer = malloc(sizeof(char)*j);
-	strcpy(resizedBuffer, buf);
-	return resizedBuffer;
+
+
+prom_metrics* prom_metrics_create() {
+    prom_metrics *metrics = malloc(sizeof(prom_metrics));
+    metrics->list = malloc(sizeof(prom_metric)*METRIC_START_SIZE);
+	metrics->length = 0;
+    return metrics;
 }
+
 
 int prom_metrics_add_metric(prom_metrics *metrics, prom_metric *metric) {
     metrics->list[metrics->length] = metric;

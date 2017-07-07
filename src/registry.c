@@ -4,6 +4,12 @@ prom_collector_registry* prom_collector_registry_setup(int maxCollectors) {
     prom_collector_registry *reg = malloc(sizeof(prom_collector_registry));
     reg->collectors = malloc(sizeof(prom_collector)*maxCollectors);
     reg->count = 0;
+
+    // Setup the default collector, this should be moved deeper inside the library
+    prom_collector *default_collector = prom_default_collector();
+    prom_collector_registry_register(reg, default_collector);
+
+
     return reg;
 }
 

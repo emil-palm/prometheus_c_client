@@ -1,20 +1,17 @@
 #include "collector.h"
 
+// This is made for handling the "process_" type of data that we should implement
 typedef struct {
-    prom_metric* counter;
 } _default_collector_s;
 
 _default_collector_s *_default_collector;
 
 prom_metrics* default_collector_metrics() {
-    prom_metrics *metrics = malloc(sizeof(prom_metrics));
-    prom_metrics_add_metric(metrics, _default_collector->counter);
+    prom_metrics *metrics = prom_metrics_create();
     return metrics;
 }
 
 int default_collector_update() {
-    prom_metric *metric = prom_counter_metric("requests_total","Requests.");
-    prom_counter_inc(metric);
     return 0;
 }
 
@@ -28,5 +25,9 @@ prom_collector* prom_default_collector() {
     collector->metrics = default_collector_metrics;
 
     return collector;
+}
+
+prom_collector* prom_create_collector() {
+	return malloc(sizeof(prom_collector*));
 }
 

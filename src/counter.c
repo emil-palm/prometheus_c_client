@@ -1,25 +1,23 @@
 #include "counter.h"
 
-char *prom_counter_export(prom_metric *metric) {
-	char buffer[9000];
-	size_t length = (size_t)snprintf(buffer, 9000, "# TYPE %s counter\n", metric->name);
-	char *buf = malloc(sizeof(char)*length);
-	strcpy(buf, buffer);
-	return buf;	
-}
-
 prom_metric* prom_counter_metric(char *name, char *help) {
 	prom_metric *metric = prom_metric_setup(name, help);
-	metric->data = malloc(sizeof(prom_counter));
-	metric->export_func = prom_counter_export;
+    metric->type = PROM_METRIC_COUNTER_TYPE;
+    prom_counter *cnt = malloc(sizeof(prom_counter));
+    cnt->value = 0;
+	metric->data = cnt;
 	return metric;
 }
 
 int prom_counter_inc(prom_metric *metric) {
+    prom_counter *cnt = (prom_counter*)metric->data;
+    cnt->value++;
 	return 0;
 }
 
-int prom_counter_inc_double(prom_metric metric, double v) {
+int prom_counter_inc_double(prom_metric *metric, double v) {
+    prom_counter *cnt = metric->data;
+    cnt->value += v;
 	return 0;
 }
 

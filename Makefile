@@ -9,7 +9,7 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 CPPFLAGS += -Iinclude
 CFLAGS += -Wall -g
 LDFLAGS += -Llib
-LDLIBS += -lm
+LDLIBS += -lm -lmicrohttpd
 
 .PHONY: all clean
 
