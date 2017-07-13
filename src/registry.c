@@ -37,16 +37,3 @@ int prom_collector_registry_scrape(prom_collector_registry *reg) {
     }
     return 0;
 }
-
-/*
-char* prom_collector_registry_export(prom_collector_registry *reg) {
-	char buffer[9000];
-	size_t totalSize = 0;
- 	for(int i=0; i < reg->count; i++) {
-		char *buf = prom_collector_export(reg->collectors[i]);
-		totalSize += (size_t)snprintf(buffer, 9000, "%s%s", buffer, buf);
-	}
-	char *resizedBuffer = malloc(sizeof(char)*totalSize);
-	strcpy(resizedBuffer, buffer);
-	return resizedBuffer;
-}*/

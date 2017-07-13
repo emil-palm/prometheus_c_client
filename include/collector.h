@@ -15,5 +15,6 @@ typedef struct {
 
 extern prom_collector* prom_create_collector();
 extern prom_collector* prom_default_collector();
+extern int prom_collector_default_add_metric(prom_metric *metric);
 
 #endif
