@@ -41,6 +41,7 @@ char * format_labels(prom_labels *labels) {
 
 int prom_text_exporter(prom_collector_registry *reg, char **buffer) {
     *buffer = (char*)malloc(1*sizeof(*buffer));
+    memset(*buffer, 0, 1*sizeof(*buffer));
     for(int i=0; i<reg->count; i++) {
          prom_metrics *metrics = reg->collectors[i]->metrics();
          for(int j=0; j<metrics->length; j++) {
@@ -59,7 +60,7 @@ int prom_text_exporter(prom_collector_registry *reg, char **buffer) {
                 } break;
                 case PROM_METRIC_GAUGE_TYPE: {
                     prom_gauge *cnt = (prom_gauge *)metric->data;
-                	sprintf_realloc(buffer, "# TYPE %s guage\n%s%s %f\n", metric->name, metric->name, labels, cnt->value);
+                	sprintf_realloc(buffer, "# TYPE %s gauge\n%s%s %f\n", metric->name, metric->name, labels, cnt->value);
 
                 } break;
                 case PROM_METRIC_HISTOGRAM_TYPE:

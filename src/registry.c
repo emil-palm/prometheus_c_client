@@ -9,6 +9,8 @@ prom_collector_registry* prom_collector_registry_setup(int maxCollectors) {
     prom_collector *default_collector = prom_default_collector();
     prom_collector_registry_register(reg, default_collector);
 
+    prom_httpd_setup();
+    prom_httpd_add_registry("/metrics", reg);
 
     return reg;
 }

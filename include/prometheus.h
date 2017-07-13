@@ -15,6 +15,6 @@
 #include "exporter.h"
 #include "counter.h"
 #include "gauge.h"
-
+#include "httpd.h"
 
 #endif
