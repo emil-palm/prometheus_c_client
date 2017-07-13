@@ -7,7 +7,6 @@ typedef struct {
 } _default_collector_s;
 
 _default_collector_s *_default_collector;
-unsigned long _startTime;
 
 prom_metrics* default_collector_metrics() {
     prom_metrics *metrics = prom_metrics_create();
@@ -19,7 +18,6 @@ prom_metrics* default_collector_metrics() {
 }
 
 int default_collector_update() {
-    prom_gauge_set(_default_collector->uptime, _startTime);
     return 0;
 }
 
@@ -28,7 +26,7 @@ prom_collector* prom_default_collector() {
         _default_collector = malloc(sizeof(_default_collector_s));
         _default_collector->user_metrics = prom_metrics_create();
         _default_collector->uptime = prom_gauge_metric("process_start_time_seconds", "Start time of the process since unix epoch in seconds.");
-        _startTime = (unsigned long)time(NULL); 
+        prom_gauge_set(_default_collector->uptime, (unsigned long)time(NULL));
     } 
 
     prom_collector *collector = malloc(sizeof(prom_collector*));
