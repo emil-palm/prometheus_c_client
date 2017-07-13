@@ -2,10 +2,12 @@
 
 prom_metric* prom_counter_metric(char *name, char *help) {
 	prom_metric *metric = prom_metric_setup(name, help);
-    metric->type = PROM_METRIC_COUNTER_TYPE;
-    prom_counter *cnt = malloc(sizeof(prom_counter));
-    cnt->value = 0;
-	metric->data = cnt;
+    if ( metric != NULL ) {
+        metric->type = PROM_METRIC_COUNTER_TYPE;
+        prom_counter *cnt = malloc(sizeof(prom_counter));
+        cnt->value = 0;
+    	metric->data = cnt;
+    }
 	return metric;
 }
 

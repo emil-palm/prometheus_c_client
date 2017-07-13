@@ -5,6 +5,10 @@
 
 prom_metric* prom_metric_setup(char *name, char *help) {
   	prom_metric *metric = malloc(sizeof(prom_metric));
+    if ( strstr(name, " ") != NULL ) {
+        log_error("Cannot add a metric with a name containing ' '");
+        return NULL;
+    }
 	metric->name = name;
     metric->help = help;
     metric->labels = prom_labels_create();

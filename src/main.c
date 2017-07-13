@@ -15,8 +15,10 @@ int main() {
     // Setup collector_registry
     reg = prom_collector_registry_setup(10);
 
-	requestCounter = prom_counter_metric("Request counter", "Request counter of how many http requests we have gotten");
-    prom_collector_default_add_metric(requestCounter);
+	requestCounter = prom_counter_metric("request_counter", "Request counter of how many http requests we have gotten");
+    if ( requestCounter != NULL )
+        prom_collector_default_add_metric(requestCounter);
+
     prom_httpd_start(PORT);
     getchar();
     signal(SIGINT, intHandler);
