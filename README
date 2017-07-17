@@ -1,0 +1,12 @@
+# Requires:
+* CMake
+* pkg-tools
+* libmicrohttpd
+
+
+# Installation
+1) git checkout https://github.com/mrevilme/prometheus_c_client.git libprometheus
+2) cd libprometheus
+3) cmake .
+4) make
+5) make install
