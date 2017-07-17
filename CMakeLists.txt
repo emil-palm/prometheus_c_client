@@ -28,6 +28,10 @@ file(GLOB libprometheus_SRC
 
 add_library(libprometheus "${libprometheus_SRC}")
 
+# Setup 'testing' binary
+add_executable(testing "${PROJECT_SOURCE_DIR}/test/main.c")
+target_link_libraries(testing libprometheus microhttpd)
+
 # Some versioning stuffs
 
 set (libprometheus_VERSION_MAJOR 0)
@@ -37,5 +41,6 @@ set (libprometheus_VERSION_PATCH 1)
 configure_file (
   "${PROJECT_SOURCE_DIR}/include/config.h.in"
   "${PROJECT_SOURCE_DIR}/include/config.h"
-  )
+)
+
 
